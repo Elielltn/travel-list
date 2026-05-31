@@ -1,6 +1,11 @@
 import { useState } from "react";
+import type { itemType } from "../types/itemType";
 
-function Form() {
+type formProps = {
+  onAddItems: (item: itemType) => void;
+};
+
+function Form({ onAddItems }: formProps) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
 
@@ -10,6 +15,7 @@ function Form() {
     if (!description) return;
 
     const newItem = { description, quantity, packed: false, id: Date.now() };
+    onAddItems(newItem);
     setDescription("");
     setQuantity(1);
   }

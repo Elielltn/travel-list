@@ -1,11 +1,15 @@
-import initialItems from "../constants/initialItems";
 import Item from "./Item";
+import type { itemType } from "../types/itemType";
 
-function PackingList() {
+type packingListProps = {
+  items: itemType[];
+};
+
+function PackingList({ items }: packingListProps) {
   return (
     <div className="list">
       <ul>
-        {initialItems.map((item) => (
+        {items.map((item) => (
           <Item key={item.id} item={item} />
         ))}
       </ul>
