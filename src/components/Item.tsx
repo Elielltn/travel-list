@@ -5,15 +5,16 @@ type itemProps = {
     quantity: number;
     packed: boolean;
   };
+  onRemoveItem: (id: number) => void;
 };
 
-function Item({ item }: itemProps) {
+function Item({ item, onRemoveItem }: itemProps) {
   return (
     <li>
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
       </span>
-      <button>❌</button>
+      <button onClick={() => onRemoveItem(item.id)}>❌</button>
     </li>
   );
 }
