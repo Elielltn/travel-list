@@ -6,11 +6,17 @@ type itemProps = {
     packed: boolean;
   };
   onRemoveItem: (id: number) => void;
+  onToggleItem: (id: number) => void;
 };
 
-function Item({ item, onRemoveItem }: itemProps) {
+function Item({ item, onRemoveItem, onToggleItem }: itemProps) {
   return (
     <li>
+      <input
+        type="checkbox"
+        checked={item.packed}
+        onChange={() => onToggleItem(item.id)}
+      />
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
       </span>
