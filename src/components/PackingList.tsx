@@ -6,9 +6,15 @@ type packingListProps = {
   items: itemType[];
   onRemoveItem: (id: number) => void;
   onToggleItem: (id: number) => void;
+  onClearList: () => void;
 };
 
-function PackingList({ items, onRemoveItem, onToggleItem }: packingListProps) {
+function PackingList({
+  items,
+  onRemoveItem,
+  onToggleItem,
+  onClearList,
+}: packingListProps) {
   const [sortBy, setSortBy] = useState("input");
 
   let sortedItems: itemType[] = items;
@@ -41,6 +47,7 @@ function PackingList({ items, onRemoveItem, onToggleItem }: packingListProps) {
           <option value="description">Sort by description</option>
           <option value="packed">Sort by packed status</option>
         </select>
+        <button onClick={onClearList}>Clear List</button>
       </div>
     </div>
   );
