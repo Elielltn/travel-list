@@ -1,5 +1,6 @@
 import Item from "./Item";
 import type { itemType } from "../types/itemType";
+import { useState } from "react";
 
 type packingListProps = {
   items: itemType[];
@@ -8,10 +9,23 @@ type packingListProps = {
 };
 
 function PackingList({ items, onRemoveItem, onToggleItem }: packingListProps) {
+  const [sortBy, setSortBy] = useState("input");
+
+  let sortedItems: itemType[] = items;
+
+  if (sortBy === "description")
+    sortedItems = items
+      .slice()
+      .sort((a, b) => a.description.localeCompare(b.description));
+  if (sortBy === "packed")
+    sortedItems = items
+      .slice()
+      .sort((a, b) => Number(a.packed) - Number(b.packed));
+
   return (
     <div className="list">
       <ul>
-        {items.map((item) => (
+        {sortedItems.map((item) => (
           <Item
             key={item.id}
             item={item}
@@ -20,6 +34,14 @@ function PackingList({ items, onRemoveItem, onToggleItem }: packingListProps) {
           />
         ))}
       </ul>
+
+      <div className="actions">
+        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <option value="input">Sort by input order</option>
+          <option value="description">Sort by description</option>
+          <option value="packed">Sort by packed status</option>
+        </select>
+      </div>
     </div>
   );
 }
